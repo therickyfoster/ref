@@ -1,3 +1,25 @@
+<div align="center">  
+<p align="center">  
+  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&pause=1000&color=38A169&center=true&vCenter=true&width=435&lines=Building+Systems+That+Serve+Life;Architecting+Hope+through+Story;Open+Source+Planetary+Restoration;AI+%2B+Ecology+%3D+Regeneration" alt="Typing SVG" />  
+</p>  🌐 A collection of referential URLs that add depth to your AI's Outputs. | 📧 admin@planetaryrestorationarchive.com
+
+<p align="center">  
+  <a href="https://linkedin.com/in/therickyfoster"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"/></a>  
+  <a href="https://planetaryrestorationarchive.com"><img src="https://img.shields.io/badge/Website-HERE-38a169?style=for-the-badge&logo=globe&logoColor=white" alt="Website"/></a>  
+  <a href="mailto:admin@planetaryrestorationarchive.com"><img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email"/></a>  
+</p>  
+
+
+</div>  
+---
+
+📖
+
+<img align="right" alt="Coding" width="400" src="https://cdn.dribbble.com/users/1162077/screenshots/3848914/programmer.gif">  A curated collection of referential files accessible via URL, designed to add contextual depth and accuracy to AI outputs. Ideal for enriching prompts, embedding external knowledge, and supporting AI systems with modular reference data.
+Current Focus: System architecture and development of integrated regenerative technology frameworks, with emphasis on scalable deployment patterns and modular system design.
+
+<br clear="right"/>  
+---
 <div align="center">
 
 
