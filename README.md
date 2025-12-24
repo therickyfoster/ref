@@ -137,6 +137,8 @@
 - No external dependencies except CDN fallbacks
 - Long-form collapsible content architecture
 - Gamification HUD via dynamic scripting
+- CDN assets are optional enhancements only; offline mode must remain fully functional without them
+
 
 </td>
 <td width="50%">
@@ -216,10 +218,11 @@ License: GPL-3.0 | Respect all attributions
 <td>
 
 **Abuse Resistance**
-- Client-side rate limiting
-- Input sanitization layer
-- CAPTCHA for sensitive actions
-- Clear usage disclaimers
+- Client-side rate limiting (time-based + burst control)
+- Input sanitization + output escaping (XSS-safe by default)
+- Friction prompts for sensitive actions (confirm + cooldown)
+- Optional local-only proof-of-work delay for abuse throttling (offline-safe)
+- Clear usage disclaimers and “Safety Mode” defaults
 
 </td>
 </tr>
@@ -230,7 +233,7 @@ License: GPL-3.0 | Respect all attributions
 - 🚫 No manipulation mechanics
 - 🚫 No ecological damage vectors
 - 🚫 No sovereignty violations
-- 🚫 No PII exposure (keys, tokens, emails)
+- 🚫 No collection, storage, or transmission of user PII (keys, tokens, emails, identifiers) without explicit, revocable consent
 
 ---
 
@@ -238,13 +241,25 @@ License: GPL-3.0 | Respect all attributions
 
 **Analytics Configuration**
 ```javascript
-// Hidden in-depth analytics with daily summary
-// Endpoint: admin@planetaryrestorationarchive.com
-// User data: Anonymized, aggregated only
-// No telemetry without explicit consent
+// Analytics (Local-Only by Default)
+// - No telemetry is sent anywhere by default.
+// - Metrics exist solely to improve the local experience (e.g., layout, accessibility).
+// - Any sharing/export is user-initiated, previewable, and revocable.
+//
+// Allowed default: local-only aggregates (no identifiers).
+// Optional: “Export Diagnostics” produces a JSON file the user can choose to share manually.
+const analyticsPolicy = {
+  mode: "local_only", // "local_only" | "off" | "user_export_only"
+  collects: ["feature_toggles", "performance_buckets", "accessibility_prefs"],
+  forbids: ["keystrokes", "raw_text", "precise_timestamps", "unique_ids", "fingerprinting"],
+  retentionDays: 7,
+  export: { enabled: true, requiresPreview: true }
+};
+
 ```
 
 **Privacy Principles**
+- Any data export is manual, previewable, and local-file based (no auto-send)
 - Client-side search only
 - No server-side tracking without consent
 - Clear retention policies in footer
@@ -860,16 +875,21 @@ class AdaptiveNarration {
 
 **Emotional State Estimation**
 ```javascript
-// Based on click patterns, scroll behavior, dwell time
-function estimateEmotionalState(userBehavior) {
-  if (userBehavior.rapid && userBehavior.scattered) {
-    return 'anxious'; // Emphasize grounding elements
-  } else if (userBehavior.slow && userBehavior.focused) {
-    return 'contemplative'; // Deepen complexity
-  } else if (userBehavior.returning && userBehavior.thorough) {
-    return 'committed'; // Reward with secrets
-  }
+// Reading Mode Inference (Local-Only, Non-Diagnostic)
+// Based on interaction style (not emotions, not mental state).
+function inferReadingMode(behavior) {
+  if (behavior.scrollVelocityHigh && behavior.dwellLow) return "skim";
+  if (behavior.dwellHigh && behavior.reReads) return "deep";
+  return "standard";
 }
+
+// Use modes to tune presentation (never to manipulate).
+function adaptForReadingMode(mode) {
+  if (mode === "skim") return { density: "lower", tooltips: "summary-first" };
+  if (mode === "deep") return { density: "higher", tooltips: "expanded" };
+  return { density: "balanced", tooltips: "normal" };
+}
+
 ```
 
 **Generative Footnotes**
@@ -890,15 +910,26 @@ class LivingMarginalia {
 
 **Peer Shadows**
 ```javascript
-// Anonymous echoes of how others read this passage
-{
+// Local Echoes (Offline-Safe)
+// Shows *your* prior interactions with this passage across re-reads.
+// No network, no aggregation, no other-user data unless Community Mode is explicitly enabled.
+const localEchoes = {
   passage: "The guardian spoke the forbidden name",
-  peerData: {
-    mostPaused: true, // 73% of readers paused here
-    emotionalPeak: 'awe',
-    commonAnnotations: ['chills', 'predicted this', 'didn't see it coming']
+  yourHistory: {
+    revisitCount: 3,
+    longestPause: "00:12",
+    highlights: ["returned here", "annotated", "shared_to_self_notes"]
   }
-}
+};
+
+// OPTIONAL (future): Community Mode
+// Requires explicit opt-in + data preview + anonymization + server transparency.
+const communityMode = {
+  enabled: false,
+  policy: "opt_in_only",
+  forbids: ["unique_ids", "fingerprinting", "raw_text_exports"]
+};
+
 ```
 
 **Dream Logic Links**
@@ -1331,7 +1362,8 @@ const proseChecklist = {
 - [ ] localStorage fallback functional
 - [ ] Data persistence tested (reload page, data survives)
 - [ ] No data leaks or PII exposure
-- [ ] Analytics endpoint configured: `admin@planetaryrestorationarchive.com`
+- [ ] Analytics policy verified: default is local-only; any export is user-initiated + previewable + resettable
+
 
 **Safety & Ethics**
 - [ ] Zero-Harm footnote visible in UI
